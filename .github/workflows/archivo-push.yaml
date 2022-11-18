@@ -34,11 +34,11 @@ jobs:
       with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
           version: latest
-          args: rollout restart deployment.apps/demoActions
+          args: rollout restart deployment.apps/actions
 
     - name: CHECK DEPLOYMENT
       uses: myrotvorets/kubectl-action@2.0.0
       with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
           version: latest
-          args: rollout status deployment.apps/demoActions
+          args: rollout status deployment.apps/actions

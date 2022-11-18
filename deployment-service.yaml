@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demoActions
+  name: actions
 spec:
   selector:
     matchLabels:
-      app: demoActions
+      app: actions
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -15,26 +15,26 @@ spec:
   template:
     metadata:
       labels:
-        app: demoActions
-        role: demoActions
+        app: actions
+        role: actions
     spec:
       containers:
-        - name: demoActions
+        - name: actions
           image: itzelmunguia/demo-actions:latest
           ports:
             - containerPort: 80
-              name: demoActions
+              name: actions
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: demoActions
+  name: actions
   labels:
-    app: demoActions
+    app: actions
 spec:
   selector:
-   app: demoActions
+   app: actions
   type: LoadBalancer
   ports:
    - name: http
@@ -42,4 +42,4 @@ spec:
      protocol: TCP
      targetPort: 80
   selector:
-    role: demoActions
+    role: actions
