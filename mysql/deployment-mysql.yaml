@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secreto-mysql
+type: Opaque
+data:
+  ROOT_PASSWORD: bWktY29udHJhc2XDsWEtc2VndXJh
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: disco-datos-mysql
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-mysql
+  labels:
+    app: deployment-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              subPath: "mysql"
+              name: mysql-datos
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secreto-mysql
+                  key: ROOT_PASSWORD
+      volumes:
+        - name: mysql-datos
+          persistentVolumeClaim:
+            claimName: disco-datos-mysql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
