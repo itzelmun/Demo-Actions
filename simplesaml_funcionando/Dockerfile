@@ -1,4 +1,4 @@
-FROM php:7.4.30-apache
+FROM itzelmunguia/demo-actions
 
 RUN mkdir -p /var/www/simplesaml_funcionando 
 # crear carpeta simplesaml dentro de /var/www/html
