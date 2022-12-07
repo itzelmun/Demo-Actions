@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: phpmyadmin
-          image: itzelmunguia/demo-actions:latest
+          image: itzelmunguia/demo-phpmyadmin:latest
           ports:
             - containerPort: 80
           env:
