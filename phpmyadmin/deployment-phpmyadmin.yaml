@@ -12,7 +12,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-phpmyadmin
+  name: phpmyadmin
   labels:
     app: phpmyadmin
 spec:
@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: servicio-phpmyadmin
+  name: phpmyadmin
 spec:
   type: LoadBalancer
  # loadBalancerIP: 148.213.1.155
