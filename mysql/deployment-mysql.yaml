@@ -1,11 +1,11 @@
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secreto-mysql
-type: Opaque
-data:
-  ROOT_PASSWORD: bWktY29udHJhc2XDsWEtc2VndXJh
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: secreto-mysql
+#type: Opaque
+#data:
+#  ROOT_PASSWORD: mi-contraseña-segura
 
 ---
 
@@ -24,9 +24,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-mysql
+  name: mysql
   labels:
-    app: deployment-mysql
+    app: mysql
 spec:
   replicas: 1
   selector:
@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:8.0
+          image: mysql:5
           ports:
             - containerPort: 3306
           volumeMounts:
@@ -48,10 +48,11 @@ spec:
               name: mysql-datos
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secreto-mysql
-                  key: ROOT_PASSWORD
+              value: mi-contraseña-segura
+             # valueFrom:
+               # secretKeyRef:
+                 # name: secreto-mysql
+              #    key: mi-contraseña-segura
       volumes:
         - name: mysql-datos
           persistentVolumeClaim:
@@ -61,8 +62,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: servicio-mysql
+  name: mysql
 spec:
+  type: ClusterIP
   selector:
     app: mysql
   ports:

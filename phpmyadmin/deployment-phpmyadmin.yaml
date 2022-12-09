@@ -1,18 +1,19 @@
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secreto-mysql
-type: Opaque
-data:
-  root-password: bWktY29udHJhc2XDsWEtc2VndXJh
+#---
+#apiVersion: v1
+#kind: Secret
+#metadata:
+ # name: secreto-mysql
+
+#type: Opaque
+#data:
+#  ROOT_PASSWORD: mi-contraseña-segura
 
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-phpmyadmin
+  name: phpmyadmin
   labels:
     app: phpmyadmin
 spec:
@@ -27,28 +28,30 @@ spec:
     spec:
       containers:
         - name: phpmyadmin
-          image: itzelmunguia/demo-actions:latest
+          image: itzelmunguia/demo-phpmyadmin:latest
           ports:
             - containerPort: 80
           env:
             - name: PMA_HOST
-              value: servicio-mysql
+              value: mysql
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secreto-mysql
-                  key: root-password
+              value: mi-contraseña-segura
+             # valueFrom:
+              #  secretKeyRef:
+               #   name: secreto-mysql
+                #  key: ROOT_PASSWORD
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: servicio-phpmyadmin
+  name: phpmyadmin
 spec:
   type: LoadBalancer
+ # loadBalancerIP: 148.213.1.155
   selector:
     app: phpmyadmin
   ports:

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: actions
-          image: itzelmunguia/demo-actions:latest
+          image: itzelmunguia/demo-actions:php
           ports:
             - containerPort: 80
               name: actions
@@ -36,6 +36,7 @@ spec:
   selector:
    app: actions
   type: LoadBalancer
+ # loadBalancerIP: 148.213.1.154
   ports:
    - name: http
      port: 80
