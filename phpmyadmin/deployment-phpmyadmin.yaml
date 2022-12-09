@@ -1,11 +1,12 @@
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secreto-mysql
-type: Opaque
-data:
-  ROOT_PASSWORD: bWktY29udHJhc2XDsWEtc2VndXJh
+#---
+#apiVersion: v1
+#kind: Secret
+#metadata:
+ # name: secreto-mysql
+
+#type: Opaque
+#data:
+#  ROOT_PASSWORD: mi-contraseña-segura
 
 
 ---
@@ -36,10 +37,11 @@ spec:
             - name: PMA_PORT
               value: "3306"
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: secreto-mysql
-                  key: ROOT_PASSWORD
+              value: mi-contraseña-segura
+             # valueFrom:
+              #  secretKeyRef:
+               #   name: secreto-mysql
+                #  key: ROOT_PASSWORD
 
 ---
 
