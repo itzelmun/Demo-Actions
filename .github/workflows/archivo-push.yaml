@@ -27,7 +27,31 @@ jobs:
           context: .
           file: ./phpmyadmin/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/demo-actions:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/demo-phpmyadmin:latest
+
+    - name: REINICIAR DEPLOYMENT
+      uses: myrotvorets/kubectl-action@2.0.0
+      with:
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          version: latest
+          args: rollout restart deployment.apps/deployment-phpmyadmin
+
+    - name: CHECK DEPLOYMENT
+      uses: myrotvorets/kubectl-action@2.0.0
+      with:
+          config: ${{ secrets.KUBE_CONFIG_DATA }}
+          version: latest
+          args: rollout status deployment.apps/deployment-phpmyadmin
+
+
+
+    - name: CONSTRUIR Y SUBIR A DOCKER HUB
+      uses: docker/build-push-action@v3
+      with:
+          context: .
+          file: ./simplesaml_funcionando/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/demo-actions:php
 
     - name: REINICIAR DEPLOYMENT
       uses: myrotvorets/kubectl-action@2.0.0
