@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: actions
-          image: itzelmunguia/demo-actions:7.4.30
+          image: itzelmunguia/demo-actions:php
           ports:
             - containerPort: 80
               name: actions
