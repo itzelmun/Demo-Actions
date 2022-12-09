@@ -5,7 +5,7 @@ metadata:
   name: secreto-mysql
 type: Opaque
 data:
-  root-password: bWktY29udHJhc2XDsWEtc2VndXJh
+  ROOT_PASSWORD: bWktY29udHJhc2XDsWEtc2VndXJh
 
 
 ---
@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: secreto-mysql
-                  key: root-password
+                  key: ROOT_PASSWORD
 
 ---
 
